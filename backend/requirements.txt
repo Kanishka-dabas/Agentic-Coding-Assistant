@@ -6,6 +6,8 @@ langgraph==0.2.62
 python-dotenv==1.0.1
 requests==2.32.3
 qdrant-client==1.12.1
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1
 sentence-transformers==3.3.1
 langgraph-checkpoint-postgres==2.0.13
 psycopg[binary]==3.2.3
