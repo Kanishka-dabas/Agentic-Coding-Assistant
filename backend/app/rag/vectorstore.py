@@ -11,7 +11,8 @@ from qdrant_client.models import Distance , VectorParams
 COLLECTION_NAME = "codebase"
 VECTOR_SIZE = 384
 
-client = QdrantClient(host="localhost", port=6333)
+import os
+client = QdrantClient(host=os.getenv("QDRANT_HOST", "localhost"), port=6333)
 
 def ensure_collection():
     """

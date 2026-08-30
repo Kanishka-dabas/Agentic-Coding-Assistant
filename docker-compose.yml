@@ -1,8 +1,14 @@
 services:
+  postgres:
+    image: postgres:16
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=agentic
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   qdrant:
     image: qdrant/qdrant
-    ports:
-      - "6333:6333"
     volumes:
       - qdrant_storage:/qdrant/storage
 
@@ -12,9 +18,12 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    environment:
+      - QDRANT_HOST=qdrant
     volumes:
-      - ./backend/app:/app/app
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
+      - postgres
       - qdrant
 
   frontend:
@@ -25,8 +34,7 @@ services:
       - BACKEND_URL=http://backend:8000
     depends_on:
       - backend
-    volumes:
-      - ./frontend/streamlit_app:/app
 
 volumes:
+  pgdata:
   qdrant_storage:
