@@ -26,7 +26,7 @@ def run_code(code: str) -> dict:
 
     os.makedirs(container_dir, exist_ok=True)
     script_path = os.path.join(container_dir, "generated_script.py")
-    with open(script_path, "w") as f:
+    with open(script_path, "w", encoding="utf-8") as f:
         f.write(code)
 
     docker_cmd = [
@@ -35,7 +35,7 @@ def run_code(code: str) -> dict:
         "--network", "none",
         "--memory", CONTAINER_MEMORY_LIMIT,
         "--cpus", str(CONTAINER_CPU_LIMIT),
-        "-v", f"{host_dir}:/sandbox:ro",
+        "-v", f"{host_dir.replace(os.sep, '/')}:/sandbox:ro",
         "-w", "/sandbox",
         CONTAINER_IMAGE,
         "python", "generated_script.py",
