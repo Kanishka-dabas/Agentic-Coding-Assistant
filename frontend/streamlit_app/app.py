@@ -145,7 +145,8 @@ with st.sidebar:
     st.divider()
     st.subheader("This session's chats")
     if st.session_state["conversations"]:
-        for i, conv in enumerate(st.session_state["conversations"]):
+        for i in reversed(range(len(st.session_state["conversations"]))):
+            conv = st.session_state["conversations"][i]
             if st.button(conv["title"], key=f"conv_{i}", use_container_width=True):
                 archive_current_conversation()
                 st.session_state["history"] = conv["history"]
@@ -154,7 +155,7 @@ with st.sidebar:
                 st.rerun()
     else:
         st.caption("No past chats in this tab yet.")
-
+        
 st.title("🤖 Agentic Coding Assistant")
 
 if st.session_state["pending_approval"]:
