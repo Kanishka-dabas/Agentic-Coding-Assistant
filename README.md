@@ -113,6 +113,8 @@ uv run python -m tests.eval.run_eval
 ### 📈 Observability
 Every node execution, LLM call, and latency is traced via **LangSmith** — no black-box behavior, full visibility into what the agent did and why.
 
+![LangSmith tracing dashboard showing node-level traces for the agent](assets/langsmith-tracing.png)
+
 ---
 
 ## Tech Stack
